@@ -30,16 +30,33 @@
                 });
 
                 var isPlay = false;
+                var ifr;
+                var isiOs = (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i));
                 $("#flipbook").bind("turned", function(event, page, view) {
                     if((page == 2 || page == 3) && !isPlay) {
-                        audio = document.getElementById('ranetki');
-                        audio.play();
-                        isPlay = true;
+                        if(isiOs) {
+                            ifr=document.createElement("iframe");
+                            ifr.setAttribute('src', 'ranetki.mp3');
+                            ifr.setAttribute('id', "bgAudio");
+                            ifr.setAttribute('width', '0');
+                            ifr.setAttribute('height', '0');
+                            ifr.setAttribute('scrolling', 'no');
+                            ifr.style.border="0px";
+                            document.body.appendChild(ifr)
+                        } else {
+                            audio = document.getElementById('ranetki');
+                            audio.play();
+                            isPlay = true;
+                        }
                     } else if (page == 1) {
-                        audio = document.getElementById('ranetki');
-                        audio.pause();
-                        audio.currentTime = 0;
-                        isPlay = false;
+                        if(isiOs) {
+                            document.body.removeChild(ifr);
+                        } else {
+                            audio = document.getElementById('ranetki');
+                            audio.pause();
+                            audio.currentTime = 0;
+                            isPlay = false;
+                        }
                     }
                 });
             });
