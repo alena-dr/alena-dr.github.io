@@ -1,16 +1,48 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Открытка подруге</title>
+        <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div class="sample-flipbook" style="width: 400px; height: 300px; margin: 0 auto;">
+            <div id="flipbook">
+                <div class="hard"> С днем рождения Алена </div>
+                <div class="hard"></div>
+                <div> тут намутим че нить </div>
+                <div class="hard"></div>
+            </div>
+        </div>
 
-<div id="flipbook">
-    <div class="hard"> С днем рождения Алена </div>
-    <div class="hard"></div>
-    <div> тут намутим че нить </div>
-    <div class="hard"></div>
-    <div class="hard"></div>
-</div>
-<script src="//cdn.jsdelivr.net/turn.js/3/turn.js"></script>
-<script type="text/javascript">
-    $("#flipbook").turn({
-        width: 400,
-        height: 300,
-        autoCenter: true
-    });
-</script>
+        <audio id="ranetki" src="ranetki.mp3" type="audio/mpeg"></audio>
+        <script
+                src="https://code.jquery.com/jquery-2.2.4.min.js"
+                integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+                crossorigin="anonymous"></script>
+        <script src="http://www.turnjs.com/lib/turn.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#flipbook").turn({
+                    width: 400,
+                    height: 300,
+                    autoCenter: true
+                });
+
+                var isPlay = false;
+                $("#flipbook").bind("turned", function(event, page, view) {
+                    if((page == 2 || page == 3) && !isPlay) {
+                        audio = document.getElementById('ranetki');
+                        audio.play();
+                        isPlay = true;
+                    } else if (page == 1) {
+                        audio = document.getElementById('ranetki');
+                        audio.pause();
+                        audio.currentTime = 0;
+                        isPlay = false;
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
