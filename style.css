@@ -1,3 +1,9 @@
+body
+{
+    background-image: url("back.jpg");
+    opacity: 0.95;
+}
+
 .sample-flipbook{
     width:400px;
     height:200px;
